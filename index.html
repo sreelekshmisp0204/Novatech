@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skill Exchange Platform</title>
+  <link rel="stylesheet" href="assets_css_styles.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    main {
+      height: 60vh; /* Set height to 90% of the viewport */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SkillSwap</h1>
+    <nav>
+      <a href="profile.html">Profile</a>
+      <a href="matchmaking.html">Matchmaking</a>
+      <a href="messages.html">Messages</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <h2>Exchange Skills. Build Communities.</h2>
+      <p>Join now to find people near you to learn, teach, and collaborate!</p>
+      <a href="profile.html" class="btn">Get Started</a>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2025 SkillSwap. All rights reserved.</p>
+  </footer>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyA5ngu8QyClnfdhKeye1hex712ka8mcNcE",
+      authDomain: "skillswap-9f230.firebaseapp.com",
+      projectId: "skillswap-9f230",
+      storageBucket: "skillswap-9f230.firebasestorage.app",
+      messagingSenderId: "734149480961",
+      appId: "1:734149480961:web:12ed155a6cb6cf2ca7e600"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db=getFirestore(app);
+    console.log(db)
+    
+  </script>
+</body>
+</html>

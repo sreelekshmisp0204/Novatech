@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>logged</title>
+</head>
+<body>
+    <div id="prof">
+
+    </div>
+    <button id="btn">Back to Home</button>
+</body>
+<script>
+    document.getElementById("prof").innerHTML=`Already Logged as ${localStorage.getItem("user")}`
+
+    document.getElementById("btn").addEventListener("click",()=>{
+        console.log("sdnhu")
+        window.location.replace("index.html")
+    })
+
+    
+</script>
+</html>

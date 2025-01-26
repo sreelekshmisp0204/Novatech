@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messages | SkillSwap</title>
+  <link rel="stylesheet" href="assets_css_styles.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    main {
+      height: 60vh; /* Set height to 60% of the viewport */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
+    }
+    .message-thread {
+      flex-grow: 1;
+      overflow-y: auto;
+      margin-bottom: 20px;
+      max-height: 80%;
+    }
+    form {
+      display: flex;
+      justify-content: space-between;
+    }
+    input {
+      width: 80%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SkillSwap</h1>
+  </header>
+  <main>
+    <h2>Messages</h2>
+    <div class="message-thread">
+      <p><strong>Alex:</strong> Hi! When can we start our lessons?</p>
+      <p><strong>You:</strong> Tomorrow works for me!</p>
+    </div>
+    <form id="message-form">
+      <input type="text" placeholder="Type a message..." required>
+      <button type="submit" class="btn">Send</button>
+    </form>
+  </main>
+  <footer>
+    <p>&copy; 2025 SkillSwap. All rights reserved.</p>
+  </footer>
+</body>
+</html>

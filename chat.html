@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messages | SkillSwap</title>
+  <link rel="stylesheet" href="assets_css_styles.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    main {
+      height: 60vh; /* Set height to 60% of the viewport */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
+    }
+    .message-thread {
+      flex-grow: 1;
+      overflow-y: auto;
+      margin-bottom: 20px;
+      max-height: 80%;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
+    }
+    form {
+      display: flex;
+      justify-content: space-between;
+    }
+    input {
+      width: 80%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SkillSwap</h1>
+  </header>
+  <main>
+    <h2>Messages</h2>
+    <div id="message-thread" class="message-thread">
+      <!-- Messages will appear here -->
+    </div>
+    <form id="message-form">
+      <input type="text" id="message-input" placeholder="Type a message..." required>
+      <button type="submit" class="btn">Send</button>
+    </form>
+  </main>
+  <footer>
+    <p>&copy; 2025 SkillSwap. All rights reserved.</p>
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyA5ngu8QyClnfdhKeye1hex712ka8mcNcE",
+      authDomain: "skillswap-9f230.firebaseapp.com",
+      projectId: "skillswap-9f230",
+      storageBucket: "skillswap-9f230.firebasestorage.app",
+      messagingSenderId: "734149480961",
+      appId: "1:734149480961:web:12ed155a6cb6cf2ca7e600"
+    };
+
+    // Initialize Firebase and Firestore
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Get matchId from URL parameters (assumed you pass matchId as a query parameter)
+    const urlParams = new URLSearchParams(window.location.search);
+    const matchId = urlParams.get("matchId");
+
+    // Reference to the chat collection for this specific match
+    const chatRef = collection(db, "chats", matchId, "messages");
+
+    // Function to fetch and display messages from Firestore
+    async function fetchMessages() {
+      const q = query(chatRef, orderBy("timestamp"));
+      const querySnapshot = await getDocs(q);
+      const messageThread = document.getElementById("message-thread");
+      messageThread.innerHTML = ""; // Clear previous messages
+
+      querySnapshot.forEach(doc => {
+        const messageData = doc.data();
+        const messageElement = document.createElement('p');
+        messageElement.innerHTML = `<strong>${messageData.sender}:</strong> ${messageData.text}`;
+        messageThread.appendChild(messageElement);
+      });
+
+      // Scroll to the bottom of the message thread
+      messageThread.scrollTop = messageThread.scrollHeight;
+    }
+
+    // Send a new message
+    async function sendMessage(event) {
+      event.preventDefault(); // Prevent form from submitting the traditional way
+
+      const messageInput = document.getElementById("message-input");
+      const messageText = messageInput.value.trim();
+      if (messageText === "") return; // Don't send empty messages
+
+      // Add the message to Firestore
+      const message = {
+        sender: "You",  // You can replace this with the current user's name dynamically
+        text: messageText,
+        timestamp: new Date()
+      };
+
+      await addDoc(chatRef, message);
+
+      messageInput.value = "";  // Clear the input field
+      fetchMessages();  // Reload the message thread
+    }
+
+    // Initialize the page by fetching existing messages
+    fetchMessages();
+
+    // Set up form submission to send messages
+    const messageForm = document.getElementById("message-form");
+    messageForm.addEventListener("submit", sendMessage);
+
+  </script>
+</body>
+</html>
